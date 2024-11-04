@@ -36,6 +36,10 @@ class CircularQueue {
     return this.rear = this.front === 0;
   }
 
+  isFull() {
+    return !!this.items[this.rear];
+  }
+
   peek() {
     return this.items[this.rear];
   }
@@ -67,18 +71,22 @@ queue.print();
 queue.enqueue(60);
 
 queue.print();
+console.log(`isFull: ${queue.isFull()}`)
 
 queue.enqueue(70);
 
 queue.print();
+console.log(`isFull: ${queue.isFull()}`)
 
 queue.enqueue(80);
 
 queue.print();
+console.log(`isFull: ${queue.isFull()}`)
 
 queue.dequeue();
 
 queue.print();
+console.log(`isFull: ${queue.isFull()}`)
 
 queue.dequeue();
 
