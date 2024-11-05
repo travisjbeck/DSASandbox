@@ -53,27 +53,18 @@ class CircularQueue {
     // const filtered = sorted.filter(o => !!o)
 
 
-
     // Both methods have O(n) time complexity, but this one only creates 1 new array. 
     let i = 0;
     //set up an array to our current size to 
     let printArr = new Array(this.currentLength);
-    //start at front, go to end. 
-    for (var p = this.front; p < this.items.length; p++) {
+    let p;
+    //start at front, go til the end. 
+    for (p = this.front; p !== this.rear; p = (p + 1) % this.items.length) {
       if (this.items[p]) {//make sure we have a value here
         printArr[i] = this.items[p];
         i++;
       }
     }
-
-    //start at 0 go to front. 
-    for (var p = 0; p < this.front; p++) {
-      if (this.items[p]) {
-        printArr[i] = this.items[p];
-        i++;
-      }
-    }
-
     console.log(printArr);
   }
 
