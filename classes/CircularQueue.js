@@ -1,14 +1,17 @@
 class CircularQueue {
+
   constructor(size) {
-    this.items = new Array(size).fill(null, 0, size);
+    this.items = new Array(size);
     this.front = 0;
     this.rear = 0;
+    this.currentLength = 0;
   }
 
   enqueue(item) {
     if (!this.items[this.rear]) {
       this.items[this.rear] = item;
       this.rear++;
+      this.currentLength++;
       if (this.rear === this.items.length) {
         this.rear = 0;
       }
@@ -23,21 +26,22 @@ class CircularQueue {
       if (this.front === this.items.length) {
         this.front = 0;
       }
+      this.currentLength--;
       return item;
     }
     return null;
   }
 
   size() {
-    return this.rear = this.front;
+    return this.currentLength;
   }
 
   isEmpty() {
-    return this.rear = this.front === 0;
+    return this.currentLength === 0;
   }
 
   isFull() {
-    return !!this.items[this.rear];
+    return this.currentLength === this.items.length;
   }
 
   peek() {
@@ -63,7 +67,7 @@ queue.print();
 queue.dequeue();
 
 queue.print();
-
+console.log(`Queue size: ${queue.size()}`)
 queue.enqueue(50);
 
 queue.print();
@@ -74,8 +78,9 @@ queue.print();
 console.log(`isFull: ${queue.isFull()}`)
 
 queue.enqueue(70);
-
 queue.print();
+console.log(`Queue size: ${queue.size()}`)
+
 console.log(`isFull: ${queue.isFull()}`)
 
 queue.enqueue(80);
@@ -86,6 +91,8 @@ console.log(`isFull: ${queue.isFull()}`)
 queue.dequeue();
 
 queue.print();
+console.log(`Queue size: ${queue.size()}`)
+
 console.log(`isFull: ${queue.isFull()}`)
 
 queue.dequeue();
