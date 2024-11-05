@@ -10,11 +10,8 @@ class CircularQueue {
   enqueue(item) {
     if (!this.items[this.rear]) {
       this.items[this.rear] = item;
-      this.rear++;
       this.currentLength++;
-      if (this.rear === this.items.length) {
-        this.rear = 0;
-      }
+      this.rear = (this.rear + 1) % this.items.length //modulo wrap around
     }
   }
 
@@ -22,10 +19,7 @@ class CircularQueue {
     if (this.items[this.front]) {
       const item = this.items[this.front];
       this.items[this.front] = null;
-      this.front++;
-      if (this.front === this.items.length) {
-        this.front = 0;
-      }
+      this.front = (this.front + 1) % this.items.length //modulo wrap-around
       this.currentLength--;
       return item;
     }
@@ -49,7 +43,38 @@ class CircularQueue {
   }
 
   print() {
-    console.log(this.items);
+
+    if (this.isEmpty()) {
+      return console.log([]);
+    }
+
+    // This is cleaner but has higher memory usage as it's creating 4 new arrays. 
+    // const sorted = [...this.items.slice(this.front), ...this.items.slice(0, this.front)]
+    // const filtered = sorted.filter(o => !!o)
+
+
+
+    // Both methods have O(n) time complexity, but this one only creates 1 new array. 
+    let i = 0;
+    //set up an array to our current size to 
+    let printArr = new Array(this.currentLength);
+    //start at front, go to end. 
+    for (var p = this.front; p < this.items.length; p++) {
+      if (this.items[p]) {//make sure we have a value here
+        printArr[i] = this.items[p];
+        i++;
+      }
+    }
+
+    //start at 0 go to front. 
+    for (var p = 0; p < this.front; p++) {
+      if (this.items[p]) {
+        printArr[i] = this.items[p];
+        i++;
+      }
+    }
+
+    console.log(printArr);
   }
 
 }
@@ -61,48 +86,30 @@ queue.print();
 queue.enqueue(10);
 queue.enqueue(20);
 queue.enqueue(30);
-
-queue.print();
-
-queue.dequeue();
-
-queue.print();
-console.log(`Queue size: ${queue.size()}`)
+queue.enqueue(40);
 queue.enqueue(50);
 
 queue.print();
 
+console.log(queue.dequeue());
+
+queue.print();
 queue.enqueue(60);
-
 queue.print();
-console.log(`isFull: ${queue.isFull()}`)
-
+console.log(queue.dequeue());
+console.log(queue.dequeue());
+console.log(queue.dequeue());
+console.log(queue.dequeue());
 queue.enqueue(70);
-queue.print();
-console.log(`Queue size: ${queue.size()}`)
-
-console.log(`isFull: ${queue.isFull()}`)
-
 queue.enqueue(80);
-
+queue.enqueue(90);
 queue.print();
-console.log(`isFull: ${queue.isFull()}`)
-
-queue.dequeue();
-
+console.log(queue.dequeue());
+console.log(queue.dequeue());
+console.log(queue.dequeue());
+queue.enqueue(100);
 queue.print();
-console.log(`Queue size: ${queue.size()}`)
-
-console.log(`isFull: ${queue.isFull()}`)
-
-queue.dequeue();
-
+queue.enqueue(110);
 queue.print();
-
-queue.dequeue();
-
-queue.print();
-
-queue.dequeue();
-
+console.log(queue.dequeue());
 queue.print();
