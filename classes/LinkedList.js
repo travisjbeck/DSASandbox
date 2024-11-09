@@ -5,10 +5,10 @@ class Node {
   }
 }
 
-
 class LinkedList {
   constructor() {
     this.head = null; //points to the first node
+    this.tail = null;
     this.size = 0;
   }
 
@@ -23,29 +23,27 @@ class LinkedList {
   //O(1)
   prepend(value) {
     const node = new Node(value);
-    //do we already have a head? if so. point our new node to it and set our head to the new node
-    if (this.head) {
+
+    if (this.isEmpty()) {
+      this.head = node;
+      this.tail = node;
+    } else {
       node.next = this.head;
+      this.head = node;
     }
-    this.head = node;
     this.size++;
   }
 
-  //O(n)
-  //can make it O(1) with a tail pointer
+  //O(1)
   append(value) {
     const node = new Node(value);
-
     //if this is the first node, just set head to it, otherwise point the last node to the new one
     if (this.isEmpty()) {
       this.head = node;
+      this.tail = node;
     } else {
-      //find last node and update it's next property to this node. 
-      let prev = this.head;
-      while (prev.next) {
-        prev = prev.next;
-      }
-      prev.next = node;
+      this.tail.next = node;
+      this.tail = node;
     }
     this.size++;
   }
@@ -55,14 +53,17 @@ class LinkedList {
       throw new Error(`Index out of bounds. Must be between 0 and ${this.size}`);
     }
 
+    //O(1)
     if (index === 0) {
       return this.prepend(value);
     }
 
+    //O(1)
     if (index === this.size) {
       return this.append(value);
     }
 
+    //O(n)
     const node = new Node(value);
     let prev = this.head;
     //find the node just before the index we want to insert to
@@ -86,9 +87,18 @@ class LinkedList {
 
     let removedNode;
 
-    if (index == 0) {
+    if (index === 0) {
+      return this.removeFromFront();
+    }
+
+    if (index === this.size - 1) {
+      return this.removeFromEnd();
+    }
+
+    if (this.size === 1) {
       removedNode = this.head;
-      this.head = this.head.next;
+      this.head = null;
+      this.tail = null;
     } else {
       let prev = this.head;
       //get the node to the left of the index we're removing
@@ -97,13 +107,98 @@ class LinkedList {
       }
       //save the node we're removing
       removedNode = prev.next;
+
+      //did we remove the last node?
+      if (this.tail == removedNode) {
+        this.tail = prev;
+      }
       //set the node to its left to point to the node the removed node was pointing to
       prev.next = removedNode.next
     }
 
     this.size--;
+
+    if (this.size <= 1) {
+      this.tail = this.head;
+    }
     return removedNode.value;
   }
+
+  //O(1)
+  removeFromFront() {
+    if (this.isEmpty()) {
+      return null;
+    }
+    let removedNode = this.head;
+    if (this.size === 1) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      this.head = removedNode.next;
+    }
+    this.size--;
+    return removedNode.value;
+  }
+
+  //O(n)
+  removeFromEnd() {
+    if (this.isEmpty()) {
+      return null;
+    }
+    let removedNode = this.tail;
+    if (this.size === 1) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      let prev = this.head;
+      while (prev.next !== this.tail) {
+        prev = prev.next
+      }
+      this.tail = prev;
+      prev.next = null;
+    }
+    this.size--;
+    return removedNode.value;
+  }
+
+  search(value) {
+    if (this.isEmpty()) {
+      return -1;
+    }
+
+    let curr = this.head;
+    let i = 0;
+    while (curr) {
+      if (curr.value === value) {
+        return i;
+      }
+      curr = curr.next
+      i++;
+    }
+    return -1;
+  }
+
+  reverse() {
+    if (this.isEmpty()) {
+      return;
+    }
+    let prev = null;
+    let curr = this.head;
+    this.tail = this.head;
+    // point the first node to null
+    // point each one afterwards to its previous
+    // update head to the last one
+    while (curr) {
+      const next = curr.next;
+      curr.next = prev;
+      prev = curr;
+      curr = next;
+    }
+    console.log(`head: ${prev.value}, tail: ${this.tail.value}`)
+    this.head = prev;
+
+  }
+
 
   print() {
     if (this.isEmpty()) {
@@ -112,6 +207,7 @@ class LinkedList {
 
     let curr = this.head;
     let i = 0;
+    //set our array to hold the print state. Initialized to the proper size
     let res = new Array(this.size);
     //walk the nodes and add them to the array to print
     while (curr) {
@@ -121,9 +217,7 @@ class LinkedList {
     }
     console.log(res.toString());
   }
-
 }
-
 
 
 const list = new LinkedList();
@@ -134,10 +228,19 @@ console.log('size: ', list.getSize());
 list.append(10);
 list.append(20);
 list.append(30);
+list.prepend(5);
 list.print();
 list.insert(25, 2);
 
 list.print();
 console.log(list.removeFrom(2));
 list.print();
-
+console.log(list.search(20));
+list.reverse();
+list.print();
+console.log(list.removeFromEnd())
+list.print();
+list.append(50);
+list.print();
+console.log(list.removeFromFront());
+list.print();
