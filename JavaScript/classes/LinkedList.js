@@ -218,29 +218,30 @@ class LinkedList {
     console.log(res.toString());
   }
 }
+module.exports = LinkedList;
 
 
-const list = new LinkedList();
-console.log('list is empty?: ', list.isEmpty());
-console.log('size: ', list.getSize());
+// const list = new LinkedList();
+// console.log('list is empty?: ', list.isEmpty());
+// console.log('size: ', list.getSize());
 
 
-list.append(10);
-list.append(20);
-list.append(30);
-list.prepend(5);
-list.print();
-list.insert(25, 2);
+// list.append(10);
+// list.append(20);
+// list.append(30);
+// list.prepend(5);
+// list.print();
+// list.insert(25, 2);
 
-list.print();
-console.log(list.removeFrom(2));
-list.print();
-console.log(list.search(20));
-list.reverse();
-list.print();
-console.log(list.removeFromEnd())
-list.print();
-list.append(50);
-list.print();
-console.log(list.removeFromFront());
-list.print();
+// list.print();
+// console.log(list.removeFrom(2));
+// list.print();
+// console.log(list.search(20));
+// list.reverse();
+// list.print();
+// console.log(list.removeFromEnd())
+// list.print();
+// list.append(50);
+// list.print();
+// console.log(list.removeFromFront());
+// list.print();
