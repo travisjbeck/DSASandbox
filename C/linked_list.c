@@ -109,11 +109,7 @@ void print(LinkedList *linkedList)
 
 void dealloc(LinkedList *linkedList)
 {
-  if (linkedList->size == 0)
-  {
-    free(linkedList);
-    return;
-  }
+
   Node *ptr = linkedList->head;
   while (ptr != NULL)
   {
