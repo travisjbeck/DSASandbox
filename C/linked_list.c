@@ -109,7 +109,6 @@ void print(LinkedList *linkedList)
 
 void dealloc(LinkedList *linkedList)
 {
-
   Node *ptr = linkedList->head;
   while (ptr != NULL)
   {
