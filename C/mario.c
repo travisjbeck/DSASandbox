@@ -11,15 +11,20 @@
 //   ######  ######
 //  #######  #######
 // ########  ########
-void printntimes(int n, char *c);
+void printntimes(int n, char c);
+
+const int MIN_ROWS = 1;
+const int MAX_ROWS = 8;
+const char SPACE = ' ';
+const char BLOCK = '#';
 
 int main(void)
 {
-  int n;
+  int n = 0;
   // only allow answers between 1 and 8
-  while (n < 1 || n > 8)
+  while (n < MIN_ROWS || n > MAX_ROWS)
   {
-    n = get_int("how many bricks: ");
+    n = get_int("how many rows: ");
   }
 
   // we're making rows of reflected bricks
@@ -28,26 +33,26 @@ int main(void)
   {
 
     // print first spaces
-    printntimes(n - (i + 1), " ");
+    printntimes(n - (i + 1), SPACE);
 
     // print blocks
-    printntimes(i + 1, "#");
+    printntimes(i + 1, BLOCK);
 
     // print static blocks
-    printf("  ");
+    printf(" ");
 
     // print block
-    printntimes(i + 1, "#");
+    printntimes(i + 1, BLOCK);
 
     // return line
     printf("\n");
   }
 }
 
-void printntimes(int n, char *c)
+void printntimes(int n, char c)
 {
   for (int i = 0; i < n; i++)
   {
-    printf("%s", c);
+    printf("%c", c);
   }
 }
