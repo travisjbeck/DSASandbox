@@ -1,5 +1,5 @@
 // Luhn's Algorithm Implementation
-// This is my second more cleaner attempt using just 1 array.
+
 #include <cs50.h>
 #include <stdio.h>
 #include <stdlib.h>
