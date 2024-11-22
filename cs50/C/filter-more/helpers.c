@@ -53,8 +53,19 @@ void reflect(int height, int width, RGBTRIPLE image[height][width])
 // Blur image
 void blur(int height, int width, RGBTRIPLE image[height][width])
 {
+    RGBTRIPLE copy[height][width];
 
-    // RBGTRIPLE avg = get_3x3_average(height, width, &image, row, col);
+    // copy the array so we don't average already averaged pixels
+    copy_array(height, width, image, copy);
+
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            image[i][j] = get_3x3_average(height, width, copy, i, j);
+        }
+    }
+
     return;
 }
 
