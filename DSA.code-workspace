@@ -61,6 +61,12 @@
 			"**/*.yaml": false,
 			"**/Makefile": false,
 			"**/*.sh": false
+		},
+		"files.associations": {
+			"*html": "html",
+			"*njk": "html",
+			"helpers.h": "c",
+			"getopt.h": "c"
 		}
 	}
 }
