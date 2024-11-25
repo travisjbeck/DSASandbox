@@ -16,7 +16,7 @@ typedef struct node
     struct node *next;     // pointer to the next node
 } node;
 
-bool insert(char *word);
+(bool)insert(char *word);
 void prepare_table(node **tbl);
 
 const unsigned int N = 26 * 1000;
