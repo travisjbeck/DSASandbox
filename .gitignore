@@ -19,6 +19,8 @@
 *.so.*
 *.dylib
 
+.venv
+
 # Executables
 *.exe
 *.out
