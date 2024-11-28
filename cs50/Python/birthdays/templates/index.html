@@ -1,37 +1,55 @@
 <!DOCTYPE html>
 
 <html lang="en">
-    <head>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-        <link href="/static/styles.css" rel="stylesheet">
-        <title>Birthdays</title>
-    </head>
-    <body>
-        <div class="header">
-            <h1>Birthdays</h1>
-        </div>
-        <div class="container">
-            <div class="section">
 
-                <h2>Add a Birthday</h2>
-                <!-- TODO: Create a form for users to submit a name, a month, and a day -->
-            </div>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+  <link href="/static/styles.css" rel="stylesheet">
+  <title>Birthdays</title>
+</head>
 
-            <div class="section">
+<body>
+  <div class="header">
+    <h1>Birthdays</h1>
+  </div>
+  <div class="container">
+    <div class="section">
 
-                <h2>All Birthdays</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Birthday</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- TODO: Loop through the database entries to display them in this table -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </body>
+      <h2>Add a Birthday</h2>
+      <form action="/" method="post">
+        <input type="text" name="name" required placeholder="name">
+        <input type="number" pattern="^(0?[1-12]$" oninvalid="setCustomValidity('Must be between 1 and 12')"
+          oninput="setCustomValidity('')" name="month" required placeholder="day">
+        <input type="number" pattern="^(0?[1-9]|[12][0-9]|3[01])$"
+          oninvalid="setCustomValidity('Must be between 1 and 31')" oninput="setCustomValidity('')" name="day" required
+          placeholder="day">
+        <button type="submit">submit</button>
+      </form>
+      <!-- TODO: Create a form for users to submit a name, a month, and a day -->
+    </div>
+
+    <div class="section">
+
+      <h2>All Birthdays</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Birthday</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- TODO: Loop through the database entries to display them in this table -->
+          {% for birthday in birthdays %}
+          <tr>
+            <td>{{birthday["name"]|capitalize}}</td>
+            <td>{{birthday["month"]}}/{{birthday["day"]}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+
 </html>
