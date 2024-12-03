@@ -17,10 +17,11 @@
 
       <h2>Add a Birthday</h2>
       <form action="/" method="post">
-        <input type="text" name="name" required placeholder="name">
-        <input type="number" pattern="^(0?[1-12]$" oninvalid="setCustomValidity('Must be between 1 and 12')"
-          oninput="setCustomValidity('')" name="month" required placeholder="day">
-        <input type="number" pattern="^(0?[1-9]|[12][0-9]|3[01])$"
+        <input class="form-control" type="text" name="name" required placeholder="name">
+        <input class="form-control type=" number" pattern="^(0?[1-12]$"
+          oninvalid="setCustomValidity('Must be between 1 and 12')" oninput="setCustomValidity('')" name="month"
+          required placeholder="day">
+        <input class="form-control type=" number" pattern="^(0?[1-9]|[12][0-9]|3[01])$"
           oninvalid="setCustomValidity('Must be between 1 and 31')" oninput="setCustomValidity('')" name="day" required
           placeholder="day">
         <button type="submit">submit</button>

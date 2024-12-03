@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Get Quote
+{% endblock %}
+
+{% block main %}
+<h1 class="mb-4">Get Quote</h1>
+
+<form action="/quote" method="post" class="d-flex gap-3">
+  <input class="form-control" type="text" placeholder="Ticker Symbol (NFLX)" name="symbol" required />
+  <button class="btn btn-primary" type="submit">Search</button>
+</form>
+
+{% endblock %}

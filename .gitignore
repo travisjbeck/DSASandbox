@@ -20,6 +20,11 @@
 *.dylib
 
 .venv
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/flask_session/*
 
 # Executables
 *.exe

@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Buy
+{% endblock %}
+
+{% block main %}
+<h1 class="mb-4">Buy Shares</h1>
+<form action="/buy" method="post" class="d-flex gap-3">
+  <input class="form-control" type="text" placeholder="Ticker Symbol (NFLX)" name="symbol" required />
+  <input class="form-control" type="number" name="shares" required placeholder="Number of shares">
+  <button class="btn btn-primary" type="submit">Buy</button>
+</form>
+
+{% endblock %}

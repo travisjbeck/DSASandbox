@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block main %}
+<h1 class="mb-4">Register</h1>
+<form action="/register" method="post">
+  <span class="form-error text-danger small py-3 d-block"></span>
+  <div class="mb-3">
+    <input autocomplete="off" autofocus required class="form-control mx-auto w-auto" name="username"
+      placeholder="Username" type="text">
+  </div>
+  <div class="mb-3">
+    <input class="form-control mx-auto w-auto" minLength="8" required name="password" placeholder="Password"
+      type="password">
+  </div>
+  <div class="mb-3">
+    <input class="form-control mx-auto w-auto" minLength="8" required name="confirmation" placeholder="Repeat Password"
+      type="password">
+  </div>
+  <button class="btn btn-primary" type="submit">Register</button>
+</form>
+
+<script>
+  //validate the form and disable the btn on submit
+  const form = document.querySelector("form");
+  const btn = document.querySelector("button");
+  const formError = document.querySelector(".form-error");
+  form.addEventListener("submit", (e) => {
+    formError.innerText = "";
+    btn.disabled = true;
+    const formData = new FormData(e.target);
+    const password = formData.get("password");
+    const confirmation = formData.get("confirmation");
+    if (password !== confirmation) {
+      formError.innerText = "Passwords must match.";
+      e.stopPropagation();
+      btn.disabled = false;
+      return;
+    }
+    //go ahead and post
+  })
+
+</script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Sell
+{% endblock %}
+
+{% block main %}
+<h1 class="mb-4">Sell Shares</h1>
+
+{% if assets %}
+
+<form action="/sell" method="post" class="d-flex gap-3">
+  <select name="symbol" required id="symbol" class="form-control">
+    <option selected disabled value="">Choose a Stock</option>
+    {% for asset in assets %}
+    <option value="{{asset['symbol']}}">{{asset["symbol"]}}</option>
+    {% endfor %}
+  </select>
+  <input class="form-control" type="number" name="shares" required placeholder="Number of shares">
+  <button class="btn btn-primary" type="submit">Sell</button>
+</form>
+
+{% else %}
+
+<div class="alert alert-primary my-4" role="alert"> No purchases yet, Please <a href="/buy">buy some stocks</a> to get
+  started <br /> Cash: {{cash|usd}}</div>
+{% endif %}
+
+{% endblock %}

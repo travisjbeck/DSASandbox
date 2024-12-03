@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+History
+{% endblock %}
+
+{% block main %}
+<h1 class="mb-4">My Stocks</h1>
+{% if not transactions %}
+
+<div class="alert alert-primary my-4" role="alert"> No history yet, Please <a href="/buy">buy some stocks</a> to get
+  started</div>
+
+
+{% else %}
+
+<table class="table table-dark table-striped table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th>Transaction</th>
+      <th>Symbol</th>
+      <th>Shares</th>
+      <th>Price</th>
+      <th>Total</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for transaction in transactions%}
+    {% set type = transaction["transaction_type"]|lower %}
+    <tr class="trans-{{type}}">
+      <td class="text-muted">{{ "Bought" if type == 'credit' else 'Sold' }}</td>
+      <td class="text-muted">{{transaction["symbol"]}}</td>
+      <td class="text-muted">{{transaction["qty"]}}</td>
+      <td class="text-muted">{{transaction["price"]}}</td>
+      <td class="text-muted">{{(transaction["price"] * transaction["qty"])|usd}}</td>
+      <td class="text-muted">{{transaction["created_at"]}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+{% endblock %}

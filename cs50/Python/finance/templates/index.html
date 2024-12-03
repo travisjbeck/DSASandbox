@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+
+{% block title %}
+C$50 Finance
+{% endblock %}
+
+{% block main %}
+<h1 class="mb-4">My Stocks</h1>
+{% if not assets %}
+
+<div class="alert alert-primary my-4" role="alert"> No purchases yet, Please <a href="/buy">buy some stocks</a> to get
+  started <br /> Cash: {{cash|usd}}</div>
+
+
+{% else %}
+
+<tabLe class="table table-dark table-striped table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th>Symbol</th>
+      <th>Shares</th>
+      <th>Price</th>
+      <th class="w-10 px-4 text-start">Value</th>
+      <th class="w-10 px-4">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- jinja scoping for creating an accumulator -->
+    {% set ns = namespace(total=0) %}
+    {% for asset in assets %}
+    <tr class="text-primary">
+      <td class="text-muted">{{asset["symbol"]}}</td>
+      <td class="text-muted">{{asset["shares"]}}</td>
+      <td class="text-muted">{{asset["current_price"]|usd}}</td>
+      <td class="text-muted text-start px-4">{{asset["value"]|usd}}</td>
+      <td class="d-flex justify-content-around gap-1">
+        <button data-symbol="{{asset['symbol']}}" data-path="/buy" class="btn btn-sm btn-success">Buy</button>
+        <button data-symbol="{{asset['symbol']}}" data-path="/sell" class="btn btn-sm btn-danger">Sell</button>
+      </td>
+    </tr>
+
+    {% set ns.total = ns.total + asset["value"] %}
+
+    {% endfor %}
+    <tr>
+      <td colspan="3" class="text-end fs-5 fw-bold pe-4">Stocks:</td>
+      <td class="fw-bold fs-5 text-info text-start px-4">{{ns.total|usd}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="3" class="text-end fs-5 fw-bold pe-4">Cash:</td>
+      <td class="fw-bold fs-5 text-info text-start px-4">{{cash|usd}}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="3" class="text-end fs-4 fw-bold pe-4">Total Assets</td>
+      {% set grand_total = ns.total + cash %}
+      <td class="fw-bold fs-4 text-success text-start px-4">{{grand_total|usd}}</td>
+      <td></td>
+    </tr>
+
+  </tbody>
+</tabLe>
+
+<div class="modal fade" id="transactionModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-muted">{action} Shares</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h5 id="modalSubTitle" class="mb-4 text-info">How many shares would you like to {transact}</h5>
+        <form id="actionForm" action="/buy" method="post">
+          <input id="symbolInput" type="hidden" name="symbol" />
+          <input class="form-control w-50 mx-auto" id="sharesInput" type="number" name="shares" required
+            placeholder="Number of shares">
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nevermind</button>
+        <button id="modalFormSubmitButton" type="button" class="btn ">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+{% endif %}
+
+{% endblock %}
