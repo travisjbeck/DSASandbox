@@ -1,6 +1,6 @@
 # Optimizing Developer Workflow and Chrome Extension Architecture
 
-#### Video Demo: {url}
+#### Video Demo: <https://youtu.be/9N6Ke6Gzk78>
 
 ## Introduction
 
@@ -8,7 +8,7 @@ Hi, I'm Travis. I've been a developer for over 20 years and CS50 is part of curr
 
 I've had a lot of "aha" moments while going through the CS50 course work. One of which was the understanding that underneath all the pointing and clicking and dragging I'm doing on my computer, there is a simple CLI command being ran that is actually doing the work. And if I knew those CLI commands I could just cut out the middle man and directly perform the operation. A simple example is `$: mkdir`   That's way easier than moving your hand from the keyboard to the mouse, right clicking, then left clicking, then moving your hand back to your keyboard and typing in a name and then hitting enter. This revelation ended up leading me down quite the rabbit hole of not only being more efficient at coding, but more efficient at controlling my entire computer all while using the mouse as little as possible.
 
-Thus, my final project is a combination of creating a better developer experience for myself that will continue to pay off forever as well as upgrading my react chrome extension to Svelte because I wanted to check out Svelte and my extension needs some tweaking.
+Thus, my final project is a combination of creating a better developer experience for myself that will continue to pay off forever as well as migrating my react chrome extension to Svelte while fixing a finicky bug.
 
 ## Optimizing My Developer Workflow
 
@@ -24,7 +24,7 @@ The next step in my developer workflow optimization process was to find a better
 
 Once i was using the terminal more, I started to investigate customizing the terminal, adding syntax highlighting, customizing the prompt display and so fort. I quickly realized that the terminal.app was completely inadequate for these more complex tasks and when about exploring the vast world of terminal emulators. There's kitty, alacrity, wezterm, iterm, ghostty, and more. I tried a lot, configured a lot, and settled on wezterm for now. I discovered "oh my zsh" and the amazing community therein and came up with a great terminal experience that I will continue to iterate on.
 
-wThe next step was to really understand the terminal beyond `npm` commands. I took the time to learn the basic git commands for pulling, pushing and committing, and forced myself to stop using a git gui unless i absolutely had to and then figuring out how to do that with the CLI. This is an ongoing process that I'm really enjoying.
+The next step was to really understand the terminal beyond `npm` commands. I took the time to learn the basic git commands for pulling, pushing and committing, and forced myself to stop using a git gui unless i absolutely had to and then figuring out how to do that with the CLI. This is an ongoing process that I'm really enjoying.
 
 Well by now I've configured a lot of utilities and the all those new config files are just sort of scattered about my home directory and that would not do, I needed to have these organized and in git, but that presented it's own set of problems until i found "GNU Stow" which allowed me to organize my dotfiles nice how I want them and symlink them to where the programs can pick them up giving me a nice little repo for all my customizations.
 
@@ -50,7 +50,7 @@ On to the programming project at hand. I had previously launched an AI powered c
 
 ### Svelte 5 Migration
 
-Svelte 5 had just came out so that's what I started with.  Reading the documentation, its is more like react that it's different, and had some nice touches that I could appreciate like runes, but implementation was very "quirky" to say the least. It seems some of the tooling like eslint and tsc were not playing well with Svelte 5 and some of the other packages my project required. I was able to find solutions to everything with a bit of googling, but there just isn't a ton of information outside the documentation just yet and unfortunately Svelte 5 is too new for any of the AI tools to be of any assistance.  
+Svelte 5 had just came out so that's what I started with.  Reading the documentation, its is more like react than it's different, and had some nice touches that I could appreciate like runes, but implementation was very "quirky" to say the least. It seems some of the tooling like eslint and tsc were not playing well with Svelte 5 and some of the other packages my project required. I was able to find solutions to everything with a bit of googling, but there just isn't a ton of information outside the documentation just yet and unfortunately Svelte 5 is too new for any of the AI tools to be of any assistance.  
 
 I used Tailwind for styling and shadcn components. Both Svelte and React have their own versions of shadcn components so I was able to use all the same base components I just had to change them to their Svelte counterparts. Svelte uses jinja like syntax for control and flow statements so this was very familiar.  One feature I really loved is the baked `in` and `out` transitions for components, you'll notice these nice transitions in the chrome extension when new sections come in and of the screen.
 
