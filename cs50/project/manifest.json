@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "Convert Rocket Report Helper",
+  "version": "1.1.1",
+  "description": "Creates a new Convert Rocket optimization report for the current page.",
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "debugger",
+    "windows",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://convertrocket.ai/*",
+    "https://firebasestorage.googleapis.com/*"
+  ],
+  "background": {
+    "service_worker": "src/utils/background.ts"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://convertrocket.ai/*"
+      ],
+      "js": [
+        "src/content.ts"
+      ]
+    }
+  ],
+  "action": {
+    "default_popup": "src/popup/index.html",
+    "default_icon": {
+      "16": "public/icon.png",
+      "32": "public/icon.png",
+      "48": "public/icon.png",
+      "128": "public/icon.png"
+    }
+  },
+  "icons": {
+    "16": "public/icon.png",
+    "32": "public/icon.png",
+    "48": "public/icon.png",
+    "128": "public/icon.png"
+  }
+}
