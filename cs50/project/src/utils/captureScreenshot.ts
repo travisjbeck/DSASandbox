@@ -39,21 +39,20 @@ export async function captureScreenshot(tabId: number, isMobile: boolean): Promi
                 let steps = 0;
 
                 function scrollStep() {
-                window.scrollBy(0, distance);
-                steps++;
+                    window.scrollBy(0, distance);
+                    steps++;
 
-                if (steps < 3) {
-                    setTimeout(scrollStep, delay);
-                } else {
-                    // Scroll back to top with smooth behavior
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                    // Wait for the scroll to complete
-                    setTimeout(() => {
-                    resolve(true);
-                    }, 1000);
+                    if (steps < 3) {
+                        setTimeout(scrollStep, delay);
+                    } else {
+                        // Scroll back to top with smooth behavior
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        // Wait for the scroll to complete
+                        setTimeout(() => {
+                            resolve(true);
+                        }, 1000);
+                    }
                 }
-                }
-
                 scrollStep();
             });
 
