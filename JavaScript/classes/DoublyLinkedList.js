@@ -2,10 +2,11 @@ class Node {
   constructor(value) {
     this.value = value;
     this.next = null;
+    this.prev = null;
   }
 }
 
-class LinkedList {
+class DoublyLinkedList {
   constructor() {
     this.head = null; //points to the first node
     this.tail = null;
@@ -27,6 +28,7 @@ class LinkedList {
       this.head = node;
       this.tail = node;
     } else {
+      this.head.prev = node;
       node.next = this.head;
       this.head = node;
     }
@@ -41,6 +43,7 @@ class LinkedList {
       this.tail = node;
     } else {
       this.tail.next = node;
+      node.prev = this.tail;
       this.tail = node;
     }
     this.size++;
@@ -51,17 +54,14 @@ class LinkedList {
       throw new Error(`Index out of bounds. Must be between 0 and ${this.size}`);
     }
 
-    //O(1)
     if (index === 0) {
       return this.prepend(value);
     }
 
-    //O(1)
     if (index === this.size) {
       return this.append(value);
     }
 
-    //O(n)
     const node = new Node(value);
     let prev = this.head;
     //find the node just before the index we want to insert to
@@ -122,7 +122,6 @@ class LinkedList {
     return removedNode.value;
   }
 
-  //O(1)
   removeFromFront() {
     if (this.isEmpty()) {
       return null;
@@ -133,12 +132,12 @@ class LinkedList {
       this.tail = null;
     } else {
       this.head = removedNode.next;
+      this.head.prev = null;
     }
     this.size--;
     return removedNode.value;
   }
 
-  //O(n)
   removeFromEnd() {
     if (this.isEmpty()) {
       return null;
@@ -148,10 +147,9 @@ class LinkedList {
       this.head = null;
       this.tail = null;
     } else {
-      let prev = this.head;
-      while (prev.next !== this.tail) {
-        prev = prev.next
-      }
+
+      let prev = this.tail.prev;
+
       this.tail = prev;
       prev.next = null;
     }
@@ -189,12 +187,13 @@ class LinkedList {
     while (curr) {
       const next = curr.next;
       curr.next = prev;
+      curr.prev = next;
       prev = curr;
       curr = next;
     }
     console.log(`head: ${prev.value}, tail: ${this.tail.value}`)
     this.head = prev;
-
+    prev.prev = null;
   }
 
 
@@ -216,7 +215,7 @@ class LinkedList {
     console.log(res.toString());
   }
 }
-module.exports = LinkedList;
+module.exports = DoublyLinkedList;
 
 
 // const list = new LinkedList();
