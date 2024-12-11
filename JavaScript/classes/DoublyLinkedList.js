@@ -191,7 +191,6 @@ class DoublyLinkedList {
       prev = curr;
       curr = next;
     }
-    console.log(`head: ${prev.value}, tail: ${this.tail.value}`)
     this.head = prev;
     prev.prev = null;
   }
@@ -218,18 +217,18 @@ class DoublyLinkedList {
 module.exports = DoublyLinkedList;
 
 
-// const list = new LinkedList();
-// console.log('list is empty?: ', list.isEmpty());
-// console.log('size: ', list.getSize());
+const list = new DoublyLinkedList();
+console.log('list is empty?: ', list.isEmpty());
+console.log('size: ', list.getSize());
 
 
-// list.append(10);
-// list.append(20);
-// list.append(30);
-// list.prepend(5);
-// list.print();
-// list.insert(25, 2);
-
+list.append(10);
+list.append(20);
+list.append(30);
+list.prepend(5);
+list.print();
+list.reverse();
+list.print();
 // list.print();
 // console.log(list.removeFrom(2));
 // list.print();
