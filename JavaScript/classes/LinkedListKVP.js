@@ -1,14 +1,15 @@
-// Linked list with tail, head and each node has prev and next
+// a LinkedList that takes Key value pairs; 
+
 
 class Node {
-  constructor(value) {
+  constructor(key, value) {
+    this.key = key;
     this.value = value;
     this.next = null;
-    this.prev = null;
   }
 }
 
-class DoublyLinkedList {
+class LinkedListKVP {
   constructor() {
     this.head = null; //points to the first node
     this.tail = null;
@@ -23,62 +24,32 @@ class DoublyLinkedList {
     return this.size;
   }
 
-  prepend(value) {
-    const node = new Node(value);
+  prepend(key, value) {
+    const node = new Node(key, value);
 
     if (this.isEmpty()) {
       this.head = node;
       this.tail = node;
     } else {
-      this.head.prev = node;
       node.next = this.head;
       this.head = node;
     }
     this.size++;
   }
 
-  append(value) {
-    const node = new Node(value);
+  append(key, value) {
+    const node = new Node(key, value);
     //if this is the first node, just set head to it, otherwise point the last node to the new one
     if (this.isEmpty()) {
       this.head = node;
       this.tail = node;
     } else {
       this.tail.next = node;
-      node.prev = this.tail;
       this.tail = node;
     }
     this.size++;
   }
 
-  insert(value, index) {
-    if (index < 0 || index > this.size) {
-      throw new Error(`Index out of bounds. Must be between 0 and ${this.size}`);
-    }
-
-    if (index === 0) {
-      return this.prepend(value);
-    }
-
-    if (index === this.size) {
-      return this.append(value);
-    }
-
-    const node = new Node(value);
-    let prev = this.head;
-    //find the node just before the index we want to insert to
-    //We do i < index -1 because our node literally points to the next one
-    for (var i = 0; i < index - 1; i++) {
-      prev = prev.next;
-    }
-    //point our node at the node the previous node is pointed to
-    node.next = prev.next;
-    //point the previous node to us
-    prev.next = node;
-
-    this.size++;
-
-  }
 
   removeFrom(index) {
     if (index < 0 || index >= this.size) {
@@ -134,7 +105,6 @@ class DoublyLinkedList {
       this.tail = null;
     } else {
       this.head = removedNode.next;
-      this.head.prev = null;
     }
     this.size--;
     return removedNode.value;
@@ -149,9 +119,10 @@ class DoublyLinkedList {
       this.head = null;
       this.tail = null;
     } else {
-
-      let prev = this.tail.prev;
-
+      let prev = this.head;
+      while (prev.next !== this.tail) {
+        prev = prev.next
+      }
       this.tail = prev;
       prev.next = null;
     }
@@ -159,43 +130,23 @@ class DoublyLinkedList {
     return removedNode.value;
   }
 
-  search(value) {
+  search(key) {
     if (this.isEmpty()) {
-      return -1;
+      return null;
     }
 
     let curr = this.head;
     let i = 0;
     while (curr) {
-      if (curr.value === value) {
-        return i;
+      if (curr.key === key) {
+        return curr.value;
       }
       curr = curr.next
       i++;
     }
-    return -1;
+    return null;
   }
 
-  reverse() {
-    if (this.isEmpty()) {
-      return;
-    }
-    let prev = null;
-    let curr = this.head;
-    this.tail = this.head;
-    // point the first node to null
-    // point each one afterwards to its previous
-    // update head to the last one
-    while (curr) {
-      const next = curr.next;
-      curr.next = prev;
-      curr.prev = next;
-      prev = curr;
-      curr = next;
-    }
-    this.head = prev;
-    prev.prev = null;
-  }
 
 
   print() {
@@ -216,30 +167,6 @@ class DoublyLinkedList {
     console.log(res.toString());
   }
 }
-module.exports = DoublyLinkedList;
+export default LinkedListKVP;
 
 
-const list = new DoublyLinkedList();
-console.log('list is empty?: ', list.isEmpty());
-console.log('size: ', list.getSize());
-
-
-list.append(10);
-list.append(20);
-list.append(30);
-list.prepend(5);
-list.print();
-list.reverse();
-list.print();
-// list.print();
-// console.log(list.removeFrom(2));
-// list.print();
-// console.log(list.search(20));
-// list.reverse();
-// list.print();
-// console.log(list.removeFromEnd())
-// list.print();
-// list.append(50);
-// list.print();
-// console.log(list.removeFromFront());
-// list.print();
